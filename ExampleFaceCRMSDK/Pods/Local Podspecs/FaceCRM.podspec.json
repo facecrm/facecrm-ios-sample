@@ -1,0 +1,30 @@
+{
+  "name": "FaceCRM",
+  "version": "0.0.5",
+  "summary": "Use SDK for detect face",
+  "homepage": "https://github.com/facecrm/facecrm-ios-sdk",
+  "authors": {
+    "Michael Thompson": "hoangsonit1607@gmail.com"
+  },
+  "license": {
+    "type": "BSD",
+    "file": "LICENSE"
+  },
+  "source": {
+    "git": "https://github.com/facecrm/facecrm-ios-sdk.git",
+    "tag": "0.0.5"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "swift_versions": "4.2",
+  "ios": {
+    "vendored_frameworks": "FaceCRM.framework"
+  },
+  "dependencies": {
+    "Alamofire": [
+
+    ]
+  },
+  "swift_version": "4.2"
+}

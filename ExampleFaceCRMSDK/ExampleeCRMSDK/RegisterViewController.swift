@@ -2,6 +2,7 @@ import Foundation
 import FaceCRM
 
 class RegisterViewController: UIViewController {
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet weak var vContainer: UIView!
     @IBOutlet weak var btnRegister: UIButton!
     @IBOutlet weak var btnAddPhoto: UIButton!
@@ -15,8 +16,9 @@ class RegisterViewController: UIViewController {
             bPhotoArray.append(false)
         }
         
-        FaceCRM.shared.onRegister { (faces, status, message) in
-            print("Register result:", faces.count, status, message)
+        FaceCRM.shared.onRegister { (faces, faceId, status, message) in
+            self.loadingView.isHidden = true
+            print("Register result:", faces.count, faceId, status, message)
             if status == 200 {
                 self.dismiss(animated: true, completion:nil)
             }else{
@@ -63,15 +65,17 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func touchRegister(_ sender: Any) {
-            var faceArray = Array<UIImage>()
-            for i in 1...bPhotoArray.count{
-                let iv = view.viewWithTag(10+i) as! UIImageView
-                if iv.image != nil {
-                    faceArray.append(iv.image!)
-                }
+        var faceArray = Array<UIImage>()
+        for i in 1...bPhotoArray.count{
+            let iv = view.viewWithTag(10+i) as! UIImageView
+            if iv.image != nil {
+                faceArray.append(iv.image!)
             }
+        }
         
-            FaceCRM.shared.registerFaces(faceArray)
+        loadingView.isHidden = false
+        FaceCRM.shared.setRegisterMetaData("I am a developer. I am 18 years old")
+        FaceCRM.shared.registerFaces(faceArray)
     }
     
     @IBAction func touchBack(_ sender: Any) {

@@ -11,6 +11,7 @@ class MainViewController:UIViewController {
     @IBOutlet weak var btnNew: UIButton!
     @IBOutlet weak var btnHistory: UIButton!
     
+    @IBOutlet weak var lbOthers: UILabel!
     @IBOutlet weak var lbId: UILabel!
     @IBOutlet weak var lbMetaData: UILabel!
     @IBOutlet weak var tfId: UITextField!
@@ -18,15 +19,16 @@ class MainViewController:UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        FaceCRM.shared.setAppId("71726c5c-3178-49f4-98dd-f01a356a91fc")
         getTokenSDK()
     }
     
     private func getTokenSDK(){
+        let url = URL(string:"http://api.facecrm.co/api/v1/auth/token")
+        let header = ["appId":"71726c5c-3178-49f4-98dd-f01a356a91fc"]
         var params =  [String:String]()
         let uuid = UUID().uuidString
         params.updateValue(uuid, forKey:"device_id")
-        let header = ["Authorization":"ca55719568ae5416e34c260514ac4d3b"]
-        let url = URL(string:"http://api.facecrm.co/api/v1/application/token-auth")
         
         Alamofire.request(url!,
                           method:Alamofire.HTTPMethod.post,
@@ -38,6 +40,8 @@ class MainViewController:UIViewController {
                     return
                 }
                 
+                print("Response:", response.result.value as Any)
+                
                 let value = response.result.value as? [String: Any]
                 let status =  value!["status"] as? Int ?? -999
                 let data = value!["data"]
@@ -46,6 +50,7 @@ class MainViewController:UIViewController {
                     let dict = data as! Dictionary<String, Any>
                     let token = dict["token"] as? String
                     if token != nil {
+                        print("Get token:", token!)
                         FaceCRM.shared.setToken(token!)
                     }
                 }
@@ -58,6 +63,11 @@ class MainViewController:UIViewController {
         var rect = ivPhoto.frame
         rect.size.width = UIScreen.main.bounds.width - 160
         rect.size.height = rect.size.width*3/2
+        
+        FaceCRM.shared.setCollectionId(3)
+        FaceCRM.shared.setDetectRate(70)
+        let type = [FaceCRM.DETECT_TYPE_EMOTION, FaceCRM.DETECT_TYPE_AGE, FaceCRM.DETECT_TYPE_GENDER]
+        FaceCRM.shared.setDetectType(type)
         
         FaceCRM.shared.startDetectByCamera(rect, view)
         
@@ -74,11 +84,11 @@ class MainViewController:UIViewController {
             Util.shared.showErrorToast(message, status, self)
         }
         
-        FaceCRM.shared.onDetectSuccess { (cropImage:UIImage, fullImage:UIImage, faceId:String, metaData:String) in
+        FaceCRM.shared.onDetectSuccess { (cropImage:UIImage, fullImage:UIImage, model:FCUserModel) in
             self.ivCropPhoto.image = cropImage
             self.ivFullPhoto.image = fullImage
             Util.shared.showToast("Detect success", self)
-            self.fillData(faceId, metaData)
+            self.fillData(model)
         }
     }
     
@@ -95,18 +105,23 @@ class MainViewController:UIViewController {
         clearData()
     }
     
-    private func fillData(_ faceId:String, _ metaData:String){
+    private func fillData(_ model:FCUserModel){
         clearData()
         
         btnClearDetect.isHidden = false
         btnHistory.isHidden = false
-        self.tfId.text = faceId
-        self.lbMetaData.text = metaData
+        self.tfId.text = model.faceId
+        if model.metaData.count >  0 {
+            self.lbMetaData.text = model.metaData.first
+        }
+        
+        self.lbOthers.text = "Age:" + String(model.age) + " - Gender:" + model.gender + " - Emotion:" + model.emotion
     }
 
     private func clearData(){
         tfId.text = ""
         lbMetaData.text  = ""
+        lbOthers.text = ""
         btnClearDetect.isHidden = true
         btnHistory.isHidden = true
     }
