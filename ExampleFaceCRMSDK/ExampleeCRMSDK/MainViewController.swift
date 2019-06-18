@@ -65,27 +65,27 @@ class MainViewController:UIViewController {
         rect.size.height = rect.size.width*3/2
         
         FaceCRM.shared.setCollectionId(3)
-        FaceCRM.shared.setDetectRate(70)
+        FaceCRM.shared.setDetectRate(50)
         let type = [FaceCRM.DETECT_TYPE_EMOTION, FaceCRM.DETECT_TYPE_AGE, FaceCRM.DETECT_TYPE_GENDER]
         FaceCRM.shared.setDetectType(type)
         
         FaceCRM.shared.startDetectByCamera(rect, view)
         
-        FaceCRM.shared.onFoundFace { (cropImage:UIImage, fullImage:UIImage) in
+        FaceCRM.shared.onFoundFace { (cropImage, fullImage) in
             //print("Found faces")
             self.ivCropPhoto.image = cropImage
             self.ivFullPhoto.image = fullImage
         }
         
-        FaceCRM.shared.onDetectFail { (cropImage:UIImage, fullImage:UIImage, status:Int, message:String) in
-            print("Detect fail", status, message)
-            self.ivCropPhoto.image = cropImage
+        FaceCRM.shared.onDetectFail { (face, fullImage, errorCode, errorMessage) in
+            print("Detect fail", errorCode, errorMessage)
+            self.ivCropPhoto.image = face
             self.ivFullPhoto.image = fullImage
-            Util.shared.showErrorToast(message, status, self)
+            Util.shared.showErrorToast(errorMessage, errorCode, self)
         }
         
-        FaceCRM.shared.onDetectSuccess { (cropImage:UIImage, fullImage:UIImage, model:FCUserModel) in
-            self.ivCropPhoto.image = cropImage
+        FaceCRM.shared.onDetectSuccess { (face, fullImage, model) in
+            self.ivCropPhoto.image = face
             self.ivFullPhoto.image = fullImage
             Util.shared.showToast("Detect success", self)
             self.fillData(model)

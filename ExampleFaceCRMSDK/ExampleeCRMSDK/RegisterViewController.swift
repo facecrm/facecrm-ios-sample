@@ -16,14 +16,43 @@ class RegisterViewController: UIViewController {
             bPhotoArray.append(false)
         }
         
-        FaceCRM.shared.onRegister { (faces, faceId, status, message) in
-            self.loadingView.isHidden = true
-            print("Register result:", faces.count, faceId, status, message)
-            if status == 200 {
-                self.dismiss(animated: true, completion:nil)
-            }else{
-                Util.shared.showToast(message, self)
+        FaceCRM.shared.onCapture { (cropImage, fullImage) in
+            print("Capture success:", cropImage, fullImage)
+            for i in 0..<self.bPhotoArray.count{
+                if !self.bPhotoArray[i] {
+                    self.bPhotoArray[i] = true
+                    let iv = self.view.viewWithTag(11+i) as! UIImageView
+                    iv.image = cropImage
+                    let btn = self.view.viewWithTag(21+i)
+                    btn?.isHidden = false
+                    
+                    if i == self.bPhotoArray.count - 1{
+                        self.btnAddPhoto.isHidden = true
+                    }
+                    
+                    break
+                }
             }
+        }
+        
+        FaceCRM.shared.onUploadFail { (face, status, message) in
+            print("Upload fail:", face, status, message)
+        }
+        
+        FaceCRM.shared.onUploadSuccess { (face) in
+            print("Upload success:", face)
+        }
+        
+        FaceCRM.shared.onRegisterFail { (faces, status, message) in
+            self.loadingView.isHidden = true
+            print("Register fail:", faces.count, status, message)
+            Util.shared.showToast(message, self)
+        }
+        
+        FaceCRM.shared.onRegisterSuccess { (faces, faceId) in
+            self.loadingView.isHidden = true
+            print("Register success:", faces.count, faceId)
+            self.dismiss(animated: true, completion:nil)
         }
     }
     
@@ -44,24 +73,7 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func touchAddPhoto(_ sender: Any) {
-        FaceCRM.shared.captureFace { (cropImage, fullImage) in
-            for i in 0..<self.bPhotoArray.count{
-                if !self.bPhotoArray[i] {
-                    self.bPhotoArray[i] = true
-                    let iv = self.view.viewWithTag(11+i) as! UIImageView
-                    iv.image = cropImage
-                    let btn = self.view.viewWithTag(21+i)
-                    btn?.isHidden = false
-                    
-                    //eCRMSDK.shared.registerEachFace(cropImage)
-                    if i == self.bPhotoArray.count - 1{
-                        self.btnAddPhoto.isHidden = true
-                    }
-                    
-                    break
-                }
-            }
-        }
+        FaceCRM.shared.captureFace()
     }
     
     @IBAction func touchRegister(_ sender: Any) {
