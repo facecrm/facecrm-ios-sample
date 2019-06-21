@@ -21,10 +21,5 @@
   "ios": {
     "vendored_frameworks": "FaceCRM.framework"
   },
-  "dependencies": {
-    "Alamofire": [
-
-    ]
-  },
   "swift_version": "4.2"
 }

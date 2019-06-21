@@ -1,22 +1,15 @@
 PODS:
-  - Alamofire (4.8.2)
-  - FaceCRM (0.0.5):
-    - Alamofire
+  - FaceCRM (0.0.5)
 
 DEPENDENCIES:
   - FaceCRM (from `/Volumes/data/Work/iOSPublish`)
-
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - Alamofire
 
 EXTERNAL SOURCES:
   FaceCRM:
     :path: "/Volumes/data/Work/iOSPublish"
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  FaceCRM: e726e48cffa321d401f587175ee8c3f94cfb3c2d
+  FaceCRM: 6393c089d0fa30320eccbeb66136eb49be216b54
 
 PODFILE CHECKSUM: fe3e3f37278fe8471b97e3a20c45489c0c662cc0
 

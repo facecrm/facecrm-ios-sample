@@ -12,10 +12,11 @@
 		BE4E007122AF8B5100ED6DDD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE4E006F22AF8B5100ED6DDD /* Main.storyboard */; };
 		BE4E007322AF8B5300ED6DDD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE4E007222AF8B5300ED6DDD /* Assets.xcassets */; };
 		BE4E007622AF8B5300ED6DDD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE4E007422AF8B5300ED6DDD /* LaunchScreen.storyboard */; };
+		BE78CB4022B8DD9C0084812E /* Pods_ExampleFaceCRMSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA51C7ED2CA79A0B17D0873 /* Pods_ExampleFaceCRMSDK.framework */; };
+		BE78CB4C22B8DF090084812E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE78CB4A22B8DF020084812E /* Alamofire.framework */; };
+		BE78CB4D22B8DF090084812E /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = BE78CB4A22B8DF020084812E /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BE868CB822AFBEF200371F98 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE868CB722AFBEF200371F98 /* MainViewController.swift */; };
 		BE868CBA22AFBFD500371F98 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE868CB922AFBFD500371F98 /* Util.swift */; };
-		BE9DC31F22B22FB0003657F1 /* Pods_ExampleFaceCRMSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDA51C7ED2CA79A0B17D0873 /* Pods_ExampleFaceCRMSDK.framework */; };
-		BE9DC32022B22FB0003657F1 /* Pods_ExampleFaceCRMSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DDA51C7ED2CA79A0B17D0873 /* Pods_ExampleFaceCRMSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		BED36D6922B0A63400E70129 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED36D6822B0A63400E70129 /* RegisterViewController.swift */; };
 		BED36D6F22B0B49300E70129 /* ic_add.png in Resources */ = {isa = PBXBuildFile; fileRef = BED36D6B22B0B49200E70129 /* ic_add.png */; };
 		BED36D7022B0B49300E70129 /* ic_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BED36D6C22B0B49200E70129 /* ic_add@2x.png */; };
@@ -24,13 +25,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		BE9DC32122B22FB0003657F1 /* Embed Frameworks */ = {
+		BE78CB4E22B8DF090084812E /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				BE9DC32022B22FB0003657F1 /* Pods_ExampleFaceCRMSDK.framework in Embed Frameworks */,
+				BE78CB4D22B8DF090084812E /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,6 +50,7 @@
 		BE4E007222AF8B5300ED6DDD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE4E007522AF8B5300ED6DDD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE4E007722AF8B5300ED6DDD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE78CB4A22B8DF020084812E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Alamofire.framework; sourceTree = "<group>"; };
 		BE868CB722AFBEF200371F98 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BE868CB922AFBFD500371F98 /* Util.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		BED36D6822B0A63400E70129 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +68,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE9DC31F22B22FB0003657F1 /* Pods_ExampleFaceCRMSDK.framework in Frameworks */,
+				BE78CB4022B8DD9C0084812E /* Pods_ExampleFaceCRMSDK.framework in Frameworks */,
+				BE78CB4C22B8DF090084812E /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +98,7 @@
 		BE4E005F22AF8B5100ED6DDD = {
 			isa = PBXGroup;
 			children = (
+				BE78CB4A22B8DF020084812E /* Alamofire.framework */,
 				BE4E006A22AF8B5100ED6DDD /* ExampleeCRMSDK */,
 				BE4E006922AF8B5100ED6DDD /* Products */,
 				076535D4FDC5A696673D2901 /* Pods */,
@@ -160,7 +164,7 @@
 				BE4E006522AF8B5100ED6DDD /* Frameworks */,
 				BE4E006622AF8B5100ED6DDD /* Resources */,
 				28DA3B8AFBBC3F77D6BC83C5 /* [CP] Embed Pods Frameworks */,
-				BE9DC32122B22FB0003657F1 /* Embed Frameworks */,
+				BE78CB4E22B8DF090084812E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -421,11 +425,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K62UXDC4YQ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ExampleeCRMSDK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -444,11 +450,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = K62UXDC4YQ;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = ExampleeCRMSDK/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

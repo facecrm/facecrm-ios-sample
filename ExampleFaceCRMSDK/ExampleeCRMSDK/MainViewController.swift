@@ -16,16 +16,19 @@ class MainViewController:UIViewController {
     @IBOutlet weak var lbMetaData: UILabel!
     @IBOutlet weak var tfId: UITextField!
    
+    @IBOutlet weak var btnSwitchCamera: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //71726c5c-3178-49f4-98dd-f01a356a91fc
         
-        FaceCRM.shared.setAppId("71726c5c-3178-49f4-98dd-f01a356a91fc")
+        FaceCRM.shared.setAppId("146e1fe7-3c17-460d-81a3-b5441eb5dc70")
         getTokenSDK()
     }
     
     private func getTokenSDK(){
         let url = URL(string:"http://api.facecrm.co/api/v1/auth/token")
-        let header = ["appId":"71726c5c-3178-49f4-98dd-f01a356a91fc"]
+        let header = ["appId":"146e1fe7-3c17-460d-81a3-b5441eb5dc70"]
         var params =  [String:String]()
         let uuid = UUID().uuidString
         params.updateValue(uuid, forKey:"device_id")
@@ -57,6 +60,12 @@ class MainViewController:UIViewController {
         }
     }
     
+    @IBAction func switchCamera(_ sender: Any) {
+        FaceCRM.shared.switchCameraPosition()
+        //FaceCRM.shared.setCameraPosition(FaceCRM.CAMERA_POSITION_FRONT)
+        //FaceCRM.shared.setCameraPosition(FaceCRM.CAMERA_POSITION_REAR)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -64,12 +73,20 @@ class MainViewController:UIViewController {
         rect.size.width = UIScreen.main.bounds.width - 160
         rect.size.height = rect.size.width*3/2
         
-        FaceCRM.shared.setCollectionId(3)
+        FaceCRM.shared.setFaceRectangle(UIColor.green, 2)
         FaceCRM.shared.setDetectRate(50)
+        
+        FaceCRM.shared.setCollectionId(5)
+        FaceCRM.shared.setTagId(4)
+        
         let type = [FaceCRM.DETECT_TYPE_EMOTION, FaceCRM.DETECT_TYPE_AGE, FaceCRM.DETECT_TYPE_GENDER]
         FaceCRM.shared.setDetectType(type)
         
-        FaceCRM.shared.startDetectByCamera(rect, view)
+        FaceCRM.shared.startDetectByCamera { (cameraView) in
+            cameraView.frame = rect
+            self.view.layer.addSublayer(cameraView)
+            self.btnSwitchCamera.layer.zPosition = 1
+        }
         
         FaceCRM.shared.onFoundFace { (cropImage, fullImage) in
             //print("Found faces")

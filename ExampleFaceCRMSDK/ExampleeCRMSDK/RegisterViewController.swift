@@ -62,8 +62,11 @@ class RegisterViewController: UIViewController {
         var rect = ivMainPhoto.frame
         rect.size.width = UIScreen.main.bounds.width - 180
         rect.size.height = rect.size.width*3/2
-        FaceCRM.shared.startRegisterByCamera(ivMainPhoto.frame, vContainer)
-        btnAddPhoto.layer.zPosition = 1
+        FaceCRM.shared.startRegisterByCamera{ (cameraView) in
+            cameraView.frame = rect
+            self.vContainer.layer.addSublayer(cameraView)
+            self.btnAddPhoto.layer.zPosition = 1
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,7 +89,7 @@ class RegisterViewController: UIViewController {
         }
         
         loadingView.isHidden = false
-        FaceCRM.shared.setRegisterMetaData("I am a developer. I am 18 years old")
+        FaceCRM.shared.setRegisterMetaData("{\"description\":\"I am a developer. I am 18 years old\"}")
         FaceCRM.shared.registerFaces(faceArray)
     }
     
